@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Churn Prediction</title>
+</head>
+<body>
+    <h2>Customer Churn Prediction</h2>
+    <form action="/predict" method="post">
+        Tenure: <input type="text" name="tenure"><br><br>
+        Monthly Charges: <input type="text" name="monthly_charges"><br><br>
+        <button type="submit">Predict</button>
+    </form>
+    <h3>{{ prediction_text }}</h3>
+</body>
+</html>
