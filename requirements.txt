@@ -1,5 +1,4 @@
-pandas
-numpy
-matplotlib
-scikit-learn
 flask
+numpy
+scikit-learn
+gunicorn
