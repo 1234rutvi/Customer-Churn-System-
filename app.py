@@ -1,18 +1,16 @@
 from flask import Flask, render_template, request
 import pickle
 import numpy as np
-import os
 
 app = Flask(__name__)
 
-# Load model safely
-model_path = os.path.join("model", "churn_model.pkl")
-with open(model_path, "rb") as f:
+# Load model from main folder
+with open("churn_model.pkl", "rb") as f:
     model = pickle.load(f)
 
 @app.route("/")
 def home():
-    return render_template("index.html")   # FIXED
+    return render_template("index.html")
 
 @app.route("/predict", methods=["POST"])
 def predict():
