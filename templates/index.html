@@ -2,27 +2,29 @@
 <html>
 <head>
     <title>Customer Churn Prediction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
         body {
             font-family: Arial, sans-serif;
             background: linear-gradient(to right, #4e73df, #1cc88a);
             text-align: center;
             color: white;
-            padding: 50px;
+            padding: 20px;
         }
 
         .container {
             background: white;
             color: black;
-            padding: 30px;
+            padding: 25px;
             border-radius: 15px;
-            width: 350px;
+            max-width: 400px;
             margin: auto;
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
         input {
-            width: 90%;
+            width: 95%;
             padding: 10px;
             margin: 10px 0;
             border-radius: 8px;
@@ -42,22 +44,54 @@
             background: #2e59d9;
         }
 
+        .accuracy {
+            font-size: 14px;
+            color: green;
+            margin-bottom: 10px;
+        }
+
         .result {
             margin-top: 15px;
             font-weight: bold;
         }
 
-        .error {
-            color: red;
+        .graph {
+            margin-top: 15px;
+        }
+
+        /* Loading Spinner */
+        .loader {
+            display: none;
             margin-top: 10px;
         }
 
-        .accuracy {
-            margin-bottom: 10px;
-            font-size: 14px;
-            color: green;
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4e73df;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: auto;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Mobile Friendly */
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+            }
         }
     </style>
+
+    <script>
+        function showLoader() {
+            document.getElementById("loader").style.display = "block";
+        }
+    </script>
 </head>
 <body>
 
@@ -65,18 +99,33 @@
 
 <div class="container">
 
-        <div class="accuracy">
-            Model Accuracy: {{ accuracy }}%
-        </div>
+    <div class="accuracy">
+        Model Accuracy: {{ accuracy }}%
+    </div>
 
-
-    <form action="/predict" method="POST">
+    <form action="/predict" method="POST" onsubmit="showLoader()">
         <input type="number" step="any" name="tenure" placeholder="Tenure (months)" required>
         <input type="number" step="any" name="monthly_charges" placeholder="Monthly Charges" required>
         <button type="submit">Predict</button>
     </form>
 
-   
+    <div id="loader" class="loader">
+        <div class="spinner"></div>
+        <p>Predicting...</p>
+    </div>
+
+    {% if prediction_text %}
+        <div class="result">
+            {{ prediction_text }} <br>
+            Probability: {{ probability }}%
+        </div>
+    {% endif %}
+
+    {% if plot_url %}
+        <div class="graph">
+            <img src="data:image/png;base64,{{ plot_url }}" width="100%">
+        </div>
+    {% endif %}
 
 </div>
 
