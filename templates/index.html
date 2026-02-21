@@ -1,15 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Churn Prediction</title>
+    <title>Customer Churn Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4e73df, #1cc88a);
+            text-align: center;
+            color: white;
+            padding: 50px;
+        }
+
+        .container {
+            background: white;
+            color: black;
+            padding: 30px;
+            border-radius: 15px;
+            width: 350px;
+            margin: auto;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background: #4e73df;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2e59d9;
+        }
+
+        .result {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+
+        .accuracy {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: green;
+        }
+    </style>
 </head>
 <body>
-    <h2>Customer Churn Prediction</h2>
-    <form action="/predict" method="post">
-        Tenure: <input type="text" name="tenure"><br><br>
-        Monthly Charges: <input type="text" name="monthly_charges"><br><br>
+
+<h1>Customer Churn Prediction</h1>
+
+<div class="container">
+
+        <div class="accuracy">
+            Model Accuracy: {{ accuracy }}%
+        </div>
+
+
+    <form action="/predict" method="POST">
+        <input type="number" step="any" name="tenure" placeholder="Tenure (months)" required>
+        <input type="number" step="any" name="monthly_charges" placeholder="Monthly Charges" required>
         <button type="submit">Predict</button>
     </form>
-    <h3>{{ prediction_text }}</h3>
+
+   
+
+</div>
+
 </body>
 </html>
